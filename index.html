@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+        <!-- page title -->
+        <title>Web APIs Code Quiz</title>
+  <!-- import stylesheet -->
+  <link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+
+<body>
+   <h1> Hello. What is your name?</h1> 
+   <input> <br> <br>
+   <button> Submit </button>
+   
+    <!--
+        header with view highscores and time
+        time will be dynamically updated in javascript, but by default be 0
+     -->
+    <header>
+        <h2 id="highscores-tab">View Highscores</h2>
+        <h2><span>Time: </span><span id="time">0</span></h2>
+    </header>
+
+    <main>
+        <h1 id="quiz-header">Web APIs Code Quiz</h1>
+        <p id="quiz-description">
+            Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by 15 seconds.
+        </p>
+        <button id="quiz-button">Start Quiz</button>
+        
+    </main>
+
+    <!-- import script -->
+    <script src="script.js"></script>
+</body>
+</html>
