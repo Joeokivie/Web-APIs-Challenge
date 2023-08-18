@@ -92,7 +92,7 @@ main {
 }
 
 #quiz-button {
-    margin-top: 20px;
+    margin-top: 50px;
 }
 
 main ol {
@@ -138,7 +138,7 @@ button[id^="quiz-button"]::before {
 
 }
 #question-text {
-    font-style: 3rem;
+    font-style: 38rem;
 }
 
 #question-result {
