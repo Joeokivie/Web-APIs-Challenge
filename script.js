@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function (){
   
     // START QUIZ FUNCTION
     var startquiz = function(){
-        document.getElementById("start-screen").style.display = "none"
+       
         renderQuestions();
         
     }
@@ -119,6 +119,7 @@ document.addEventListener("DOMContentLoaded", function (){
         } else {
             console.log('WRONG')
         }
+       
 
         if (currentQuestionIndex >= questionList.length -1) {
             console.log('quiz end')
@@ -127,8 +128,13 @@ document.addEventListener("DOMContentLoaded", function (){
 
         currentQuestionIndex++
         renderQuestions();
+        console.log(chosenAnswer == questionList[currentQuestionIndex].correctAnswer)
         
+
+
      }
+     
+     
     
 
      
@@ -137,9 +143,7 @@ document.addEventListener("DOMContentLoaded", function (){
 
     choicesContainer.addEventListener ("click", handlequestionclick)
     startButton.addEventListener ("click",startquiz)
-    currentQuestionsIndex++; //increments to next question
-    score.textContent = playerScore;
-    setNextQuestion(); //also sets the next question
+    
   });
 
     
