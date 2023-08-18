@@ -133,59 +133,59 @@ button[id^="quiz-button"]::before {
 .button[id^="quiz-button"]:hover::before {
     cursor: pointer;
     box-shadow: 0 0.4rem 1.4rem 0 rgba(86, 185, 235, 0.5);
-    background-color: rgba(var(--button-hover-color), 0.3);
-    transition: all 0.2s ease-in-out;
+    background-color: rgba(var(--button-hover-color), 0.4);
+    transition: all 0.5s ease-in-out;
 
 }
 #question-text {
-    font-style: 38rem;
+    font-style: 38grem;
 }
 
 #question-result {
     text-align: left;
-    width: 80%;
-    padding-top: 15px;
-    margin-top: 15px;
-    border-top-width: 2px;
+    width: 70%;
+    padding-top: 18px;
+    margin-top: 13px;
+    border-top-width: 4px;
     border-top-style: solid;
-    border-top-color: grey;
-    color: grey;
-    font-style: italic;
+    border-top-color: ghostwhite;
+    color: ghostwhite;
+    font-style: arial;
 }
 
 #quiz-save-score {
-    margin-top: 10px;
-    width: 80%;
+    margin-top: 15px;
+    width: 90%;
     display: flex;
     flex-direction: row;
 }
 
 #quiz-label-save-score {
     margin: auto 0px;
-    padding-right: 5px;
+    padding-right: 6px;
 }
 
 #quiz-button-save-score {
-    margin-left: 5px;
+    margin-left: 6px;
 }
 
 /* medium sized screens */
 @media screen and (max-width: 768px) {
     main {
-        margin: 40px 80px;
+        margin: 50px 90px;
     }
     #quiz-header {
-        font-size: 160%;
+        font-size: 170%;
     }
 }
 
 /* small sized screens */
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 510px) {
     main {
-        margin: 40px 40px;
+        margin: 47px 47px;
     }
     #quiz-header {
-        font-size: 140%;
+        font-size: 150%;
     }
 
 
