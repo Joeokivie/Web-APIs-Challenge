@@ -24,3 +24,4 @@ THEN I can save my initials and score
 ![image](https://github.com/Joeokivie/Web-APIs-Challenge/assets/138530272/f3d1ff90-e34c-4a63-b207-750bfdc5eb35)
 
 # Deployment 
+https://joeokivie.github.io/Web-APIs-Challenge/
