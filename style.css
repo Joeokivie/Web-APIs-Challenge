@@ -46,7 +46,7 @@ margin: 0 auto;
     text-align: center;
 }
 
-.hidden {
+.hide {
     display: none;
 }
 
@@ -137,7 +137,9 @@ button[id^="quiz-button"]::before {
     transition: all 0.2s ease-in-out;
 
 }
-
+#question-text {
+    font-style: 3rem;
+}
 
 #question-result {
     text-align: left;
@@ -185,4 +187,6 @@ button[id^="quiz-button"]::before {
     #quiz-header {
         font-size: 140%;
     }
+
+
 }

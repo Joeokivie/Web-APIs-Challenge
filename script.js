@@ -1,170 +1,146 @@
-var question = document.querySelector('#question');
-var choices = document.querySelectorAll('.answertext');
-var scoreText = document.querySelector('#score');
-var timer1 = document.querySelector('#timer');
-var saveButton = document.querySelector('#saveBtn');
+document.addEventListener("DOMContentLoaded", function (){
+    const startButton = document.getElementById("start-button");
+    const timerEl = document.getElementById("timer");
+    const questionContainer = document.getElementById("question-container");
+    const questionText = document.getElementById("question-text");
+    const choicesContainer = document.getElementById("choices");
+    const endScreen = document.getElementById("end-screen");
+    const finalScore = document.getElementById("final-score");
+    const initialsInput = document.getElementById("initials");
+    const submitScoreButton = document.getElementById("submit-score");
+  
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let timerInterval;
+    let timeLeft = 60;
+    let shuffledQuestions, currentQuestionsIndex;
+    let playerScore = 0; //start my score with 0
 
-//declration variables
-var currentQuestion = {};
-var score = 0;
-var questioncounter = 0;
-var correctanswers = true;
-var allquestions = [];
-var timeLeft = 1000;
-var maxquestions = 5;
-var timerInterval;
-//questions and answers to be generated on page
-var questions = [
-    {
-        question: 'Commonly used data types DO Not include:',
-        choiceA: 'strings',
-        choiceB: 'booleans',
-        choiceC: 'alerts',
-        choiceD: 'numbers',
-        answer: 'C',
-    },
-    {
-        question: 'The condition in an if/else statment is enclosed with _________.',
-        choiceA: 'quotes',
-        choiceB: 'curly brackets',
-        choiceC: 'parenthesis',
-        choiceD: 'square brackets',
-        answer: 'B',
-    },
-    {
-        question: 'Arrays in JavaScript can be used to store ___________.',
-        choiceA: 'numbers and strings',
-        choiceB: 'other arrays',
-        choiceC: 'booleans',
-        choiceD: 'all of the above',
-        answer: 'D',
-    },
-    {
-        question: 'String values must be enclosed within __________ when being assigned to variables.',
-        choiceA: 'commas',
-        choiceB: 'curly brackets',
-        choiceC: 'quotes',
-        choiceD: 'paranthesis',
-        answer: 'C',
-    },
-    {
-        question: 'A very useful tool used during development and debugging for printing content to the debugger is: ',
-        choiceA: 'JavaScript',
-        choiceB: 'terminal/bash',
-        choiceC: 'console.log',
-        choiceD: 'for loops',
-        answer: 'C',
-    },]
-//how many points to increment by when user gets correct answer
-var startPoints = 1000;
-//when 'start' button clicked run this function
-startQuiz = () => {
-    questioncounter = 0;
-    points = 0;
-    allquestions = [...questions];
-    getNextQuestion();
-}
+    let countdown = function () {
+        //here is my countdown function that sets my time
+        var timeInterval = setInterval(function () {
+          if (time >= 0) {
+            timer.textContent = time;
+            time--;
+          } else {
+            timer.textContent = "Game is Over, Try Again";
+            clearInterval(timeInterval);
+          }
+        }, 1000);
+      };
+  
+    const questionList = []
+        var question1 = {
+           text: "Commonly used data types do NOT include:",
+            choices: ["1 - Booleans", "2 - Alerts", "3 - Strings", "4 - Numbers"],
+            correctAnswer: "Alerts",
+        };
+        questionList.push(question1);
+    
+        var question2 = {
+           text: "The condition of an if/else statement is enclosed within ______.",
+            choices: ["1 - Quotes", "2 - Curly Brackets", "3 - Parentheses", "4 - Square Brackets"],
+            correctAnswer: "Parentheses",
+        };
+        questionList.push(question2);
+    
+        var question3 = {
+            text: "Arrays in Javascript can be used to store ______.",
+            choices: ["1 - Numbers and strings", "2 - Other Arrays", "3 - Booleans", "4 - All of the above",],
+            correctAnswer: "All of the above",
+        };
+        questionList.push(question3);
+    
+        var question4 = {
+            text: "String values must be enclosed within ______ when being assigned to variables.",
+            choices: ["1 - Quotes", "2 - Curly Brackets", "3 - Commas", "4 - Parentheses"],
+            correctAnswer: "Quotes",
+        };
+        questionList.push(question4);
+    
+        var question5 = {
+            text: "A very useful tool used during development and debugging for printing content to the debugger is:",
+            choices: ["1 - Javascript", "2 - console.log", "3 - Terminal/bash", "4 - For loops"],
+            correctAnswer: "console.log",
+    
+        };
 
-
-function getNextQuestion() {
-    if (allquestions.length === 0) {
-        localStorage.setItem('highscore', points)
-        document.getElementById('flood').style.display = "none";
-        document.getElementById('dry').style.display = 'block';
-        clearInterval(timerInterval);
-    } else {
-        questioncounter++;
-        //grabs a random question from array
-        var qindex = Math.floor(Math.random() * allquestions.length);
-        currentQuestion = allquestions[qindex];
-        //shows question 
-        question.innerText = currentQuestion.question;
-
-        //shows answer choices
-        choices.forEach(choice => {
-            var letter = choice.dataset['letter']
-            choice.innerText = currentQuestion['choice' + letter];
-            choice.addEventListener('click', answerSelected);
-            choice.classList.remove('incorrect', 'correct');
-        });
-
-        allquestions.splice(qindex, 1);
-        correctanswers = true;
-
-    }
-}
-
-//what happens when answers are clicked on
-function answerSelected(e) {
-    if (!correctanswers) {
-        return;
-    }
-
-    correctanswers = false;
-    var selected = e.target;
-    var clickedAnswer = selected.dataset['letter'];
-
-    var classToApply = clickedAnswer == currentQuestion.answer ? 'correct' : 'incorrect';
-    if (classToApply === 'correct') {
-        incrementPoints(startPoints);
-    } else {
-        //decreases time when wrong answer is selected
-        timeLeft -= 100;
-    }
-
-    selected.classList.add(classToApply);
-
-    choices.forEach(choice => {
-        if (choice.dataset['letter'] == currentQuestion.answer) {
-            choice.classList.add('correct');
-        }
-    });
-
-    setTimeout(getNextQuestion, 1000);
-
-}
-
-//increments the score and displays it on the page
-function incrementPoints(num) {
-    points += num;
-    scoreText.innerText = points;
-
-}
-//timer function 
-function setTime() {
-    timerInterval = setInterval(function () {
-        timeLeft--;
        
 
-        if (timeLeft === 0) {
-            clearInterval(timerInterval);
+        questionList.push(question5);
+      // Add more questions
+      console.log (questionList)
+  
+    // START QUIZ FUNCTION
+    var startquiz = function(){
+        document.getElementById("start-screen").style.display = "none"
+        renderQuestions();
+        
+    }
+    function startTimer() {
+        timerInterval = setInterval(function () {
+          timeLeft--;
+          timerEl.textContent = "Time: " + timeLeft;
+    
+          if (timeLeft <= 0) {
+            endGame();
+          }
+        }, 1000);
+      }
+
+    // RENDER QUESTIONS
+    function renderQuestions() {
+        choicesContainer.innerHTML = '';
+        questionContainer.classList.remove('hide');
+        console.log(questionList[currentQuestionIndex].text)
+        questionText.textContent = questionList[currentQuestionIndex].text;
+
+        // Iterate over choices array, create element for each
+        for (i = 0; i < questionList[currentQuestionIndex].choices.length; i++) {
+            var choiceBtn = document.createElement('button');
+            choiceBtn.style.display = 'block';
+            choiceBtn.classList.add('choice-btn')
+            choiceBtn.textContent = questionList[currentQuestionIndex].choices[i]
+            choicesContainer.append(choiceBtn);
         }
-    }, 1000);
-}
-setTime();
+
+    }
+
+     function handlequestionclick (e) {
+        if (!e.target.matches('.choice-btn')) {
+            return;
+        }
+
+        var chosenAnswer = e.target.textContent.split(' ')[2];
+        console.log(chosenAnswer);
+
+        if (chosenAnswer === questionList[currentQuestionIndex].correctAnswer) {
+            console.log('U RIGHT')
+        } else {
+            console.log('WRONG')
+        }
+
+        if (currentQuestionIndex >= questionList.length -1) {
+            console.log('quiz end')
+            return;
+        }
+
+        currentQuestionIndex++
+        renderQuestions();
+        
+     }
+    
+
+     
 
 
-//when user hits save button their name and score appear on the page
 
-    event.preventDefault();
+    choicesContainer.addEventListener ("click", handlequestionclick)
+    startButton.addEventListener ("click",startquiz)
+    currentQuestionsIndex++; //increments to next question
+    score.textContent = playerScore;
+    setNextQuestion(); //also sets the next question
+  });
 
-    var userName = document.querySelector("#userName").value;
-    var highScore = scoreText.textContent;
-    var userInfo = document.querySelector("#user-info");
+    
 
-    userInfo.innerHTML = "Name: " + userName + " - " + highScore;
-    userInfo.setAttribute('id', "userInfo");
-
-    //create try again btn
-    var goBack = document.createElement("button");
-    goBack.innerHTML = "Try Again"
-    document.body.appendChild(goBack);
-    goBack.setAttribute('id', 'startAgain');
-
-    goBack.addEventListener("click", function () {
-        location.reload();
-    });
-
-
-
-startQuiz();
